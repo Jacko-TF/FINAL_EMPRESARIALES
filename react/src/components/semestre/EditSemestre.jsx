@@ -17,7 +17,19 @@ const EditSemestre = () => {
 
   const getSemestre = async () => {
     try {
-      const response = await axios.get(`${baseUrl}${id}/`);
+      const accessToken = localStorage.getItem("access_token");
+      if (!accessToken) {
+        console.log("Unauthorized access");
+        return;
+      }
+
+      const response = await axios.get(`${baseUrl}${id}/`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
       const semestre = response.data;
       setNombre(semestre.nombre);
       setFechaInicio(semestre.fecha_inicio);
@@ -30,7 +42,24 @@ const EditSemestre = () => {
   const updateSemestre = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`${baseUrl}${id}/`, { nombre, fecha_inicio: fechaInicio, fecha_final: fechaFinal });
+      const accessToken = localStorage.getItem("access_token");
+      if (!accessToken) {
+        // Handle unauthorized access
+        console.log("Unauthorized access");
+        return;
+      }
+
+      await axios.put(
+        `${baseUrl}${id}/`,
+        { nombre, fecha_inicio: fechaInicio, fecha_final: fechaFinal },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
       navigate("/semestres"); // Redirige a la lista de semestres después de la edición
     } catch (error) {
       console.error(error);

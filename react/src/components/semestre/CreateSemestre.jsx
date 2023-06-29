@@ -16,7 +16,19 @@ const CreateSemestre = () => {
     setIsLoading(true);
 
     try {
-      await axios.post(baseUrl, { nombre, fecha_inicio: fechaInicio, fecha_final: fechaFinal });
+      const accessToken = localStorage.getItem("access_token");
+      if (!accessToken) {
+        console.log("Unauthorized access");
+        return;
+      }
+
+      await axios.post(baseUrl, { nombre, fecha_inicio: fechaInicio, fecha_final: fechaFinal }, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
       navigate("/semestres");
     } catch (error) {
       console.error(error);

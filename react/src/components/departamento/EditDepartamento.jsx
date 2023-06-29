@@ -15,7 +15,19 @@ const EditDepartamento = () => {
 
   const getDepartamento = async () => {
     try {
-      const response = await axios.get(`${baseUrl}${id}/`);
+      const accessToken = localStorage.getItem("access_token");
+      if (!accessToken) {
+        console.log("Unauthorized access");
+        return;
+      }
+
+      const response = await axios.get(`${baseUrl}${id}/`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
       const departamento = response.data;
       setName(departamento.nombre);
     } catch (error) {
@@ -26,7 +38,24 @@ const EditDepartamento = () => {
   const updateDepartamento = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`${baseUrl}${id}/`, { nombre: name });
+      const accessToken = localStorage.getItem("access_token");
+      if (!accessToken) {
+        // Handle unauthorized access
+        console.log("Unauthorized access");
+        return;
+      }
+
+      await axios.put(
+        `${baseUrl}${id}/`,
+        { nombre: name },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
       redirect("/");
     } catch (error) {
       console.error(error);

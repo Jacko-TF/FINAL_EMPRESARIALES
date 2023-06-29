@@ -14,9 +14,24 @@ const CreateDepartamento = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post(baseUrl, { nombre });
+      const accessToken = localStorage.getItem("access_token");
+      if (!accessToken) {
+        console.log("Unauthorized access");
+        return;
+      }
+
+      const response = await axios.post(
+        baseUrl,
+        { nombre },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
       console.log(response.data); // Log the response for testing purposes
-      navigate("/"); // Redirect to home page after successful creation
+      navigate("/departamento"); // Redirect to home page after successful creation
     } catch (error) {
       console.error(error);
     }

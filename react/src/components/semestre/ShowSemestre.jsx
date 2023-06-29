@@ -13,7 +13,19 @@ const ShowSemestre = () => {
 
   const getSemestres = async () => {
     try {
-      const response = await axios.get(baseUrl);
+      const accessToken = localStorage.getItem("access_token");
+      if (!accessToken) {
+        console.log("Unauthorized access");
+        return;
+      }
+
+      const response = await axios.get(baseUrl, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
       setSemestres(response.data);
     } catch (error) {
       console.error(error);
@@ -22,7 +34,20 @@ const ShowSemestre = () => {
 
   const deleteSemestre = async (id) => {
     try {
-      await axios.delete(`${baseUrl}${id}/`);
+      const accessToken = localStorage.getItem("access_token");
+      if (!accessToken) {
+        // Handle unauthorized access
+        console.log("Unauthorized access");
+        return;
+      }
+
+      await axios.delete(`${baseUrl}${id}/`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
       getSemestres();
     } catch (error) {
       console.error(error);
