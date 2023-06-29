@@ -26,6 +26,12 @@ export function Navigation() {
             <Nav.Link href="/login">Login</Nav.Link>
           }
           </Nav>
+          <Nav>
+            {isAuth ?
+              <div></div>:
+              <Nav.Link href="/register">Register</Nav.Link>
+            }
+          </Nav>
       </Navbar>
   );
 }

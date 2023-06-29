@@ -3,8 +3,9 @@ import {Navigate} from "react-router-dom";
 import {useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export const Login = () => {
+export const Register = () => {
     const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const submit = async e => {
@@ -12,20 +13,18 @@ export const Login = () => {
 
         const user = {
             username: username,
+            email:email,
             password: password
           };
 
-        const {data} = await axios.post('http://localhost:8000/token/', user ,{headers: {
+        const {data} = await axios.post('http://localhost:8000/register/', user ,{headers: {
             'Content-Type': 'application/json'
         }}, {withCredentials: true});
 
         console.log(data)
         localStorage.clear();
-        localStorage.setItem('access_token', data.access);
-        localStorage.setItem('refresh_token', data.refresh);
-        axios.defaults.headers.common['Authorization'] = `Bearer ${data['access']}`;
-        window.location.href = '/'
-
+        axios.defaults.headers.common['Authorization'] = null;
+        window.location.href = '/login'
     }
 
     return(
@@ -33,7 +32,7 @@ export const Login = () => {
         <div className="Auth-form-container">
         <form className="Auth-form" onSubmit={submit}>
           <div className="Auth-form-content">
-            <h3 className="Auth-form-title">Sign In</h3>
+            <h3 className="Auth-form-title">Register</h3>
             <div className="form-group mt-3">
               <label>Username</label>
               <input
@@ -44,6 +43,18 @@ export const Login = () => {
                 value={username}
                 required
                 onChange={e => setUsername(e.target.value)}
+              />
+            </div>
+            <div className="form-group mt-3">
+              <label>Email</label>
+              <input
+                className="form-control mt-1"
+                placeholder="Enter Email"
+                name='email'
+                type='email'
+                value={email}
+                required
+                onChange={e => setEmail(e.target.value)}
               />
             </div>
             <div className="form-group mt-3">
@@ -63,10 +74,8 @@ export const Login = () => {
                 Submit
               </button>
             </div>
-            <label>No estas registrado, <a href="/register">Registrate</a></label>
           </div>
         </form>
     </div>
-
     )
 }
