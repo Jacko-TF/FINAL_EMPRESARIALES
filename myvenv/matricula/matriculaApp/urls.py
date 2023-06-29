@@ -17,5 +17,6 @@ router.register(r'pagos', views.PagoViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('home/', views.HomeView.as_view(), name ='home'),
-    path('logout/', views.LogoutView.as_view(), name ='logout')
+    path('logout/', views.LogoutView.as_view(), name ='logout'),
+    path('register/', views.RegisterView.as_view(), name ='register')
 ]
