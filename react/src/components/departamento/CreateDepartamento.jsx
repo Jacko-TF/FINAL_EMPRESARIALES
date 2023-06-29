@@ -16,7 +16,7 @@ const CreateDepartamento = () => {
     try {
       const response = await axios.post(baseUrl, { nombre });
       console.log(response.data); // Log the response for testing purposes
-      navigate("/"); // Redirect to home page after successful creation
+      navigate("/departamento"); // Redirect to home page after successful creation
     } catch (error) {
       console.error(error);
     }

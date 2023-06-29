@@ -27,7 +27,7 @@ const EditDepartamento = () => {
     e.preventDefault();
     try {
       await axios.put(`${baseUrl}${id}/`, { nombre: name });
-      redirect("/");
+      redirect("/departamentos");
     } catch (error) {
       console.error(error);
     }
