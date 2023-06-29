@@ -38,24 +38,7 @@ const EditDepartamento = () => {
   const updateDepartamento = async (e) => {
     e.preventDefault();
     try {
-      const accessToken = localStorage.getItem("access_token");
-      if (!accessToken) {
-        // Handle unauthorized access
-        console.log("Unauthorized access");
-        return;
-      }
-
-      await axios.put(
-        `${baseUrl}${id}/`,
-        { nombre: name },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
+      await axios.put(`${baseUrl}${id}/`, { nombre: name });
       redirect("/");
     } catch (error) {
       console.error(error);

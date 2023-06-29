@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 class HomeView(APIView):
    permission_classes = (IsAuthenticated, )
    def get(self, request):
-       content = {'message': 'Welcome to the JWT Authentication page using React Js and Django!'}
+       content = {'message': 'Bienvenido a nuestro sistema de matricula Tecsup'}
        return Response(content)
 
 class LogoutView(APIView):
@@ -47,45 +47,45 @@ class RegisterView(APIView):
 class EstudianteViewSet(viewsets.ModelViewSet):
     queryset = Estudiante.objects.all().order_by('apellido')
     serializer_class = EstudianteSerializer
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [AllowAny,]
 
 class SemestreViewSet(viewsets.ModelViewSet):
     queryset = Semestre.objects.all().order_by('id')
     serializer_class = SemestreSerializer
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [AllowAny,]
 
 
 class CicloViewSet(viewsets.ModelViewSet):
     queryset = Ciclo.objects.all().order_by('id')
     serializer_class = CicloSerializer
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [AllowAny,]
 
 class DepartamentoViewSet(viewsets.ModelViewSet):
     queryset = Departamento.objects.all().order_by('id')
     serializer_class = DepartamentoSerializer
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [AllowAny,]
 
 class CarreraViewSet(viewsets.ModelViewSet):
     queryset = Carrera.objects.all().order_by('id')
     serializer_class = CarreraSerializer
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [AllowAny,]
 
 class SeccionViewSet(viewsets.ModelViewSet):
     queryset = Seccion.objects.all().order_by('id')
     serializer_class = SeccionSerializer
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [AllowAny,]
 
 class CursoViewSet(viewsets.ModelViewSet):
     queryset = Curso.objects.all().order_by('id')
     serializer_class = CursoSerializer
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [AllowAny,]
 
 class MatriculaViewSet(viewsets.ModelViewSet):
     queryset = Matricula.objects.all().order_by('id')
     serializer_class = MatriculaSerializer
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [AllowAny,]
 
 class PagoViewSet(viewsets.ModelViewSet):
     queryset = Pago.objects.all().order_by('id')
     serializer_class = PagoSerializer
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [AllowAny,]
