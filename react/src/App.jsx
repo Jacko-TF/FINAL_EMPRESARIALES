@@ -6,6 +6,15 @@ import {Home} from "./components/Home";
 import { Navigation } from './components/Navigation';
 import {Logout} from './components/logout';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import {Departamento} from './interceptors/Departamento';
+// import {SemestreRoutes} from './interceptors/';
+
+import ShowDepartamento from './components/departamento/ShowDepartamento';
+import CreateDepartamento from './components/departamento/CreateDepartamento';
+import EditDepartamento from './components/departamento/EditDepartamento';
+import ShowSemestre from './components/semestre/ShowSemestre';
+import CreateSemestre from './components/semestre/CreateSemestre';
+import EditSemestre from './components/semestre/EditSemestre';
 
 function App() {
     return <BrowserRouter>
@@ -15,6 +24,17 @@ function App() {
             <Route path="/login" element={<Login/>}/>
             <Route path="/register" element={<Register/>}/>
             <Route path="/logout" element={<Logout/>}/>
+        
+
+            <Route path='/departamento' element={<ShowDepartamento></ShowDepartamento>}></Route>
+            <Route path='/departamento/create' element={<CreateDepartamento></CreateDepartamento>}></Route>
+            <Route path='/departamento/edit/:id' element={<EditDepartamento></EditDepartamento>}></Route>
+            
+            <Route path="/semestres" element={<ShowSemestre />} />
+            <Route path="/semestres/create" element={<CreateSemestre />} />
+            <Route path="/semestres/edit/:id" element={<EditSemestre />} />
+   
+            
         </Routes>
     </BrowserRouter>;
 }
