@@ -40,29 +40,29 @@ class CarreraSerializer(serializers.HyperlinkedModelSerializer):
 class SeccionSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name="matriculaApp:seccion-detail")
     ciclo = CicloSerializer()
+    carrera = CarreraSerializer()
     class Meta:
         model = Seccion
-        fields = ['id','url','nombre','ciclo']
+        fields = ['id','url','nombre','cupos','ciclo','carrera']
 
 class CursoSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name="matriculaApp:curso-detail")
     seccion = SeccionSerializer()
     class Meta:
         model = Curso
-        fields = ['id','url','nombre','descripcion','credito','cupos','horas','seccion']
+        fields = ['id','url','nombre','descripcion','credito','horas','seccion']
 
 class MatriculaSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name="matriculaApp:matricula-detail")
     estudiante = EstudianteSerializer()
-    carrera = CarreraSerializer()
     seccion = SeccionSerializer()
     class Meta:
         model = Matricula
-        fields = ['id','url','fecha','estudiante','carrera','seccion']
+        fields = ['id','url','fecha','estudiante','seccion']
 
 class PagoSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name="matriculaApp:pago-detail")
     matricula = MatriculaSerializer()
     class Meta:
         model = Pago
-        fields = ['id','url','monto','estado','fecha_creacion','fecha_vencimiento','fecha_pago','penalidad','matricula']
+        fields = ['id','url','monto','estado','fecha_creacion','fecha_vencimiento','fecha_pago','matricula']

@@ -18,16 +18,16 @@ class CarreraAdmin(admin.ModelAdmin):
     list_display = ['nombre','departamento']
 
 class SeccionAdmin(admin.ModelAdmin):
-    list_display = ['nombre','ciclo']
+    list_display = ['nombre','cupos','ciclo','carrera']
 
 class CursoAdmin(admin.ModelAdmin):
-    list_display = ['nombre','descripcion','credito','cupos','horas','seccion']
+    list_display = ['nombre','descripcion','credito','horas','seccion']
 
 class MatriculaAdmin(admin.ModelAdmin):
-    list_display = ['fecha','estudiante','carrera','seccion']
+    list_display = ['fecha','estudiante','seccion']
 
 class PagoAdmin(admin.ModelAdmin):
-    list_display = ['monto','estado','fecha_creacion','fecha_vencimiento','fecha_pago','penalidad','matricula']
+    list_display = ['monto','estado','fecha_creacion','fecha_vencimiento','fecha_pago','matricula']
 
 admin.site.register(Estudiante, EstudianteAdmin)
 admin.site.register(Semestre, SemestreAdmin)

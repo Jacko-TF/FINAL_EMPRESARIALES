@@ -44,7 +44,9 @@ class Carrera(models.Model):
 
 class Seccion(models.Model):
     nombre = models.CharField(max_length=1)
+    cupos = models.PositiveIntegerField()
     ciclo = models.ForeignKey(Ciclo, on_delete=models.CASCADE)
+    carrera = models.ForeignKey(Carrera, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nombre
@@ -53,7 +55,6 @@ class Curso(models.Model):
     nombre = models.CharField(max_length=200)
     descripcion = models.TextField()
     credito = models.IntegerField()
-    cupos = models.IntegerField()
     horas = models.IntegerField()
     seccion = models.ForeignKey(Seccion, on_delete=models.CASCADE)
 
@@ -63,20 +64,18 @@ class Curso(models.Model):
 class Matricula(models.Model):
     fecha = models.DateField()
     estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE)
-    carrera = models.ForeignKey(Carrera, on_delete=models.CASCADE)
     seccion = models.ForeignKey(Seccion, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.estudiante.apellido+'-'+self.carrera.nombre+'-'+self.seccion.nombre
+        return self.estudiante.apellido+'-'+self.seccion.carrera.nombre+'-'+self.seccion.ciclo.nombre+'-'+self.seccion.nombre
 
 class Pago(models.Model):
-    matricula = models.ForeignKey(Matricula, on_delete=models.CASCADE)
+    matricula = models.OneToOneField(Matricula, on_delete=models.CASCADE)
     monto = models.DecimalField(max_digits=6, decimal_places=2)
     estado = models.BooleanField(default=False)
     fecha_creacion = models.DateField(default=date.today)
     fecha_vencimiento = models.DateField()
     fecha_pago = models.DateField()
-    penalidad = models.DecimalField(max_digits=6, decimal_places=2)
 
     def __str__(self):
         return str(self.monto)+'-'+str(self.estado)+'-'+self.matricula.estudiante.apellido
