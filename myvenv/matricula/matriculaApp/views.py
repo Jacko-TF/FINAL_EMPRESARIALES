@@ -9,6 +9,7 @@ from rest_framework import status
 from .models import Estudiante, Semestre, Seccion, Ciclo, Departamento, Carrera, Curso, Matricula, Pago
 from .serializers import EstudianteSerializer, SemestreSerializer, SeccionSerializer, CarreraSerializer, CicloSerializer, DepartamentoSerializer, CursoSerializer, MatriculaSerializer, PagoSerializer
 from django.contrib.auth.models import User
+from datetime import datetime,date
 
 class HomeView(APIView):
    permission_classes = (IsAuthenticated, )
@@ -41,7 +42,32 @@ class RegisterView(APIView):
             else:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            return Response(status=status.HTTP_400_BAD_REQUEST)       
+            return Response(status=status.HTTP_400_BAD_REQUEST) 
+
+class CicloActualView(APIView):
+    permission_classes = (AllowAny,)
+    def get(self,request):
+        ciclos = Ciclo.objects.filter(semestre__fecha_inicio__gt=date.today())
+        ciclosList = list(ciclos)
+        content = {'ciclos':ciclosList}
+        return Response(content)
+
+class MatricularView(APIView):
+    permission_classes = (AllowAny,)
+    def post(self, request):
+        try:
+            estudiante_id = request.data['estudiante']
+            ciclo_id = request.data['ciclo']
+            carrera_id = request.data['carrera']
+            fecha = datetime.now().date()
+            if(Ciclo.objects.filter(id=ciclo_id).exists()):
+                seccion = Seccion.objects.get(carrera=carrera_id,ciclo=ciclo_id)
+                seccion_id = seccion.id
+                matricula = Matricula.objects.create(fecha,estudiante_id,seccion_id)
+                matricula.save()
+                return Response(status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 #APLICACION MATRICULAAPP
 class EstudianteViewSet(viewsets.ModelViewSet):
