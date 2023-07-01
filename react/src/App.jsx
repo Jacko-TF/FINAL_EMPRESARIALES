@@ -16,6 +16,9 @@ import ShowSemestre from './components/semestre/ShowSemestre';
 import CreateSemestre from './components/semestre/CreateSemestre';
 import EditSemestre from './components/semestre/EditSemestre';
 
+import CursosList from './components/Cursos/CursosList';
+import PagosList from './components/Pagos/PagosList';
+
 function App() {
     return <BrowserRouter>
     <Navigation></Navigation>
@@ -33,6 +36,9 @@ function App() {
             <Route path="/semestres" element={<ShowSemestre />} />
             <Route path="/semestres/create" element={<CreateSemestre />} />
             <Route path="/semestres/edit/:id" element={<EditSemestre />} />
+
+            <Route path="/cursos" element={<CursosList/>}/>
+            <Route path="/pagos" element={<PagosList/>}/>
    
             
         </Routes>

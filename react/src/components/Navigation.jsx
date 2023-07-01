@@ -20,6 +20,8 @@ export function Navigation() {
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/departamento">Departamento</Nav.Link>
             <Nav.Link href="/semestres">Semestre</Nav.Link>
+            <Nav.Link href="/cursos">Cursos</Nav.Link>
+            <Nav.Link href="/pagos">Pagos</Nav.Link>
           </>
         )}
       </Nav>
