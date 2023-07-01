@@ -1,0 +1,2 @@
+CREATE TABLE `descub`.`muralista` (`id` BIGINT NOT NULL AUTO_INCREMENT , `nombre` VARCHAR(100) NULL , `apellidos` VARCHAR(200) NULL , `seudonimo` VARCHAR(200) NOT NULL , `foto` BLOB NULL , `celular` CHAR(9) NULL , `userInstagram` VARCHAR(30) NULL , `userFacebook` VARCHAR(50 ) NULL , `email` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`), UNIQUE (`email`)) ENGINE = InnoDB;
+ALTER TABLE `muralista` CHANGE `foto` `foto` LONGBLOB NULL DEFAULT NULL;

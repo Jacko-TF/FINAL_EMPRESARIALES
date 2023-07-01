@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const baseUrl = "http://127.0.0.1:8000/semestres/";
+const baseUrl = "http://127.0.0.1:8000/carreras/"; 
 
-const ShowSemestre = () => {
-  const [semestres, setSemestres] = useState([]);
+const ShowCarreras = () => {
+  const [carreras, setCarreras] = useState([]);
 
   useEffect(() => {
-    getSemestres();
+    getCarreras();
   }, []);
 
-  const getSemestres = async () => {
+  const getCarreras = async () => {
     try {
       const accessToken = localStorage.getItem("access_token");
       if (!accessToken) {
@@ -26,7 +26,7 @@ const ShowSemestre = () => {
         },
       });
 
-      setSemestres(response.data);
+      setCarreras(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -37,7 +37,6 @@ const ShowSemestre = () => {
       <div className="row mt-3">
         <div className="col-md-4 offset-md-4">
           <div className="d-grid mx-auto">
-            <Link to="/semestres/create" className="btn btn-dark">Añadir</Link>
           </div>
         </div>
       </div>
@@ -48,19 +47,16 @@ const ShowSemestre = () => {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Semestre</th>
-                  <th>Fecha de Inicio</th>
-                  <th>Fecha Final</th>
-                  <th></th>
+                  <th>Carrera</th>
+                  <th>Departamento</th>
                 </tr>
               </thead>
               <tbody className="table-group-divider">
-                {semestres.map((semestre, index) => (
-                  <tr key={semestre.id}>
+                {carreras.map((carrera, index) => (
+                  <tr key={carrera.id}>
                     <td>{index + 1}</td>
-                    <td>{semestre.nombre}</td>
-                    <td>{semestre.fecha_inicio}</td>
-                    <td>{semestre.fecha_final}</td>
+                    <td>{carrera.nombre}</td>
+                    <td>{carrera.departamento.nombre}</td>
                   </tr>
                 ))}
               </tbody>
@@ -72,4 +68,4 @@ const ShowSemestre = () => {
   );
 };
 
-export default ShowSemestre;
+export default ShowCarreras;

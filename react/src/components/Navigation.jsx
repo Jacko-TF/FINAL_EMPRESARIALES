@@ -1,5 +1,6 @@
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import React, { useState, useEffect } from 'react';
 
 export function Navigation() {
@@ -18,8 +19,13 @@ export function Navigation() {
         {isAuth && (
           <>
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/departamento">Departamento</Nav.Link>
-            <Nav.Link href="/semestres">Semestre</Nav.Link>
+            <Nav.Link href="/matricula">Matricula</Nav.Link>
+            <Nav.Link href="/estudiante">Estudiante</Nav.Link>
+            <NavDropdown title="Tablas" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/departamento">Departamento</NavDropdown.Item>
+              <NavDropdown.Item href="/semestre">Semestre</NavDropdown.Item>
+              <NavDropdown.Item href="/carrera">Carrera</NavDropdown.Item>
+            </NavDropdown>
           </>
         )}
       </Nav>

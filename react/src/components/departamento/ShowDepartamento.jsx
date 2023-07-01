@@ -33,27 +33,6 @@ const ShowDepartamento = () => {
     }
   };
 
-  const deleteDepartamento = async (id) => {
-    try {
-      const accessToken = localStorage.getItem("access_token");
-      if (!accessToken) {
-        console.log("Unauthorized access");
-        return;
-      }
-
-      await axios.delete(`${baseUrl}${id}/`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-
-      getDepartamentos();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <div className="container-fluid">
       <div className="row mt-3">
@@ -71,7 +50,6 @@ const ShowDepartamento = () => {
                 <tr>
                   <th>#</th>
                   <th>Departamento</th>
-                  <th></th>
                 </tr>
               </thead>
               <tbody className="table-group-divider">
@@ -79,11 +57,6 @@ const ShowDepartamento = () => {
                   <tr key={departamento.id}>
                     <td>{index + 1}</td>
                     <td>{departamento.nombre}</td>
-                    <td>
-                      <Link to={`/departamento/edit/${departamento.id}`} className="btn btn-warning">Editar</Link>
-                      &nbsp;
-                      <button className="btn btn-danger" onClick={() => deleteDepartamento(departamento.id)}>Eliminar</button>
-                    </td>
                   </tr>
                 ))}
               </tbody>

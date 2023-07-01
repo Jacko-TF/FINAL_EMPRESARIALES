@@ -48,9 +48,8 @@ class CicloActualView(APIView):
     permission_classes = (AllowAny,)
     def get(self,request):
         ciclos = Ciclo.objects.filter(semestre__fecha_inicio__gt=date.today())
-        ciclosList = list(ciclos)
-        content = {'ciclos':ciclosList}
-        return Response(content)
+        serializer = CicloSerializer(ciclos, many=True, context={'request': request})
+        return Response(serializer.data)
 
 class MatricularView(APIView):
     permission_classes = (AllowAny,)
