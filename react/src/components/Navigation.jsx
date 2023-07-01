@@ -18,6 +18,9 @@ export function Navigation() {
         {isAuth && (
           <>
             <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/ciclo">Ciclo</Nav.Link>
+            <Nav.Link href="/seccion">Seccion</Nav.Link>
+            <Nav.Link href="/estudiantes">Estudiante</Nav.Link>
             <Nav.Link href="/departamento">Departamento</Nav.Link>
             <Nav.Link href="/semestres">Semestre</Nav.Link>
           </>

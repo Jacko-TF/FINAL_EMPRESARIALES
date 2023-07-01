@@ -52,7 +52,7 @@ class EstudianteViewSet(viewsets.ModelViewSet):
 class SemestreViewSet(viewsets.ModelViewSet):
     queryset = Semestre.objects.all().order_by('id')
     serializer_class = SemestreSerializer
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [AllowAny,]
 
 
 class CicloViewSet(viewsets.ModelViewSet):
@@ -63,7 +63,7 @@ class CicloViewSet(viewsets.ModelViewSet):
 class DepartamentoViewSet(viewsets.ModelViewSet):
     queryset = Departamento.objects.all().order_by('id')
     serializer_class = DepartamentoSerializer
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [AllowAny,]
 
 class CarreraViewSet(viewsets.ModelViewSet):
     queryset = Carrera.objects.all().order_by('id')

@@ -16,6 +16,13 @@ import ShowSemestre from './components/semestre/ShowSemestre';
 import CreateSemestre from './components/semestre/CreateSemestre';
 import EditSemestre from './components/semestre/EditSemestre';
 
+import ShowEstudiante from './components/estudiante/Mostrar';
+import CreateEstudiante from './components/estudiante/Nuevo';
+import EditEstudiante from './components/estudiante/Editar';
+
+import MostrarSeccion from './components/seccion/MostrarSeccion';
+import MostrarCiclo from './components/ciclo/MostrarCiclo';
+
 function App() {
     return <BrowserRouter>
     <Navigation></Navigation>
@@ -34,6 +41,12 @@ function App() {
             <Route path="/semestres/create" element={<CreateSemestre />} />
             <Route path="/semestres/edit/:id" element={<EditSemestre />} />
    
+            <Route path='/estudiantes' element={<MostrarEstudiante/>}></Route>
+            <Route path='/estudiantes/create' element={<NuevoEstudiante/>}></Route>
+            <Route path='/estudiantes/edit/:id' element={<EditarEstudiante/>}></Route>
+            
+            <Route path='/ciclo' element={<MostrarCiclo></MostrarCiclo>}></Route>
+            <Route path='/seccion' element={<MostrarSeccion></MostrarSeccion>}></Route>
             
         </Routes>
     </BrowserRouter>;
