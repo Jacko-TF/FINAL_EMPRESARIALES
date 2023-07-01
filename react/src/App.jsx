@@ -16,9 +16,9 @@ import ShowSemestre from './components/semestre/ShowSemestre';
 import CreateSemestre from './components/semestre/CreateSemestre';
 import EditSemestre from './components/semestre/EditSemestre';
 
-import ShowEstudiante from './components/estudiante/Mostrar';
-import CreateEstudiante from './components/estudiante/Nuevo';
-import EditEstudiante from './components/estudiante/Editar';
+import MostrarEstudiante from './components/estudiante/Mostrar';
+import NuevoEstudiante from './components/estudiante/Nuevo';
+import EditarEstudiante from './components/estudiante/Editar';
 
 import MostrarSeccion from './components/seccion/MostrarSeccion';
 import MostrarCiclo from './components/ciclo/MostrarCiclo';
