@@ -7,7 +7,7 @@ from rest_framework import  viewsets
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import status
 from .models import Estudiante, Semestre, Seccion, Ciclo, Departamento, Carrera, Curso, Matricula, Pago
-from .serializers import EstudianteSerializer, SemestreSerializer, SeccionSerializer, CarreraSerializer, CicloSerializer, DepartamentoSerializer, CursoSerializer, MatriculaSerializer, PagoSerializer
+from .serializers import EstudianteSerializer, SemestreSerializer, SeccionSerializer, CarreraSerializer, CicloSerializer, DepartamentoSerializer, CursoSerializer, MatriculaSerializer, PagoSerializer, CarreraCuposSerializer, CicloCuposSerializer
 from django.contrib.auth.models import User
 from datetime import datetime,date
 import random
