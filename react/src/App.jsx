@@ -20,6 +20,8 @@ import ShowCiclo from './components/ciclo/ShowCiclo';
 import ShowEstudiante from './components/estudiante/ShowEstudiante';
 import CreateEstudiante from './components/estudiante/createEstudiante';
 import EditEstudiante from './components/estudiante/EditEstudiante';
+import CuposCarreraList from './components/consultas/CuposCarrera';
+import CuposCicloList from './components/consultas/CuposCiclo';
 
 function App() {
     return <BrowserRouter>
@@ -43,6 +45,9 @@ function App() {
             <Route path='/estudiante' element={<ShowEstudiante/>}></Route>
             <Route path='/estudiante/create' element={<CreateEstudiante/>}></Route>
             <Route path='/estudiante/edit/:id' element={<EditEstudiante/>}></Route>
+
+            <Route path="/cupos-carrera" element={<CuposCarreraList/>}/>
+            <Route path="/cupos-ciclo" element={<CuposCicloList/>}/>
             
         </Routes>
     </BrowserRouter>;

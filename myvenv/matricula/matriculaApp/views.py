@@ -147,3 +147,19 @@ class PagoViewSet(viewsets.ModelViewSet):
     queryset = Pago.objects.all().order_by('id')
     serializer_class = PagoSerializer
     permission_classes = [AllowAny,]
+
+class CuposCarreraViewSet(viewsets.ViewSet):
+    permission_classes = [AllowAny,]
+
+    def list(self, request):
+        carreras = Carrera.objects.all()
+        serializer = CarreraCuposSerializer(carreras, many=True)
+        return Response(serializer.data)
+
+class CuposCicloViewSet(viewsets.ViewSet):
+    permission_classes = [AllowAny,]
+
+    def list(self, request):
+        ciclos = Ciclo.objects.all()
+        serializer = CicloCuposSerializer(ciclos, many=True)
+        return Response(serializer.data)

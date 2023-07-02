@@ -14,6 +14,8 @@ router.register(r'secciones', views.SeccionViewSet)
 router.register(r'cursos', views.CursoViewSet)
 router.register(r'matriculas', views.MatriculaViewSet)
 router.register(r'pagos', views.PagoViewSet)
+router.register(r'cupos-carrera', views.CuposCarreraViewSet, basename='cupos-carrera')
+router.register(r'cupos-ciclo', views.CuposCicloViewSet, basename='cupos-ciclo')
 urlpatterns = [
     path('', include(router.urls)),
     path('home/', views.HomeView.as_view(), name ='home'),
