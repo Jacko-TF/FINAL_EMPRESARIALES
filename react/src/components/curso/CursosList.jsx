@@ -10,6 +10,13 @@ function CursosList() {
 
   const getCursos = async () => {
     try {
+      const accessToken = localStorage.getItem("access_token");
+      if (!accessToken) {
+        // Manejar acceso no autorizado
+        console.log("Acceso no autorizado");
+        return;
+      }
+
       const response = await axios.get('http://127.0.0.1:8000/cursos/', {
         headers: {
           "Content-Type": "application/json",
@@ -27,7 +34,7 @@ function CursosList() {
       <div className="row mt-3">
         <div className="col-12 col-lg-8 offset-0 offset-lg-2">
           <div className="table-responsive">
-          <h2>Lista de Cursos</h2>
+            <h2>Lista de Cursos</h2>
             <table className="table table-bordered">
               <thead>
                 <tr>

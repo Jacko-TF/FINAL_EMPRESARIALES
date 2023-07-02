@@ -20,9 +20,9 @@ import ShowCiclo from './components/ciclo/ShowCiclo';
 import ShowEstudiante from './components/estudiante/ShowEstudiante';
 import CreateEstudiante from './components/estudiante/createEstudiante';
 import EditEstudiante from './components/estudiante/EditEstudiante';
-import CarreraMatriculados from './components/matriculados/CarreraMatriculados';
-import CicloMatriculados from './components/matriculados/CicloMatriculados';
-import DepartamentoMatriculados from './components/matriculados/DepartamentoMatriculados';
+import CarreraMatriculados from './components/consultas/CarreraMatriculados';
+import CicloMatriculados from './components/consultas/CicloMatriculados';
+import DepartamentoMatriculados from './components/consultas/DepartamentoMatriculados';
 
 DepartamentoMatriculados
 
