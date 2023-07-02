@@ -10,6 +10,12 @@ function CursosList() {
 
   const getCursos = async () => {
     try {
+      const accessToken = localStorage.getItem("access_token");
+      if (!accessToken) {
+        // Handle unauthorized access
+        console.log("Unauthorized access");
+        return;
+      }
       const response = await axios.get('http://127.0.0.1:8000/cursos/', {
         headers: {
           "Content-Type": "application/json",
