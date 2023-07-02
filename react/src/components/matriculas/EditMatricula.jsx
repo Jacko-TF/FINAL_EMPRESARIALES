@@ -79,7 +79,7 @@ const EditMatricula = () => {
         }
       );
 
-      navigate("/matriculas");
+      navigate("/matricula");
     } catch (error) {
       console.error(error);
     }

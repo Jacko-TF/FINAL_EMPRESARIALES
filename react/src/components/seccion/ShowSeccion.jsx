@@ -41,6 +41,8 @@ const ShowSeccion = () => {
                 <tr>
                   <th>#</th>
                   <th>Nombre</th>
+                  <th>Cupos</th>
+                  <th>Carrera</th>
                   <th>Ciclo</th>
                   <th>Semestre</th>
                 </tr>
@@ -50,6 +52,8 @@ const ShowSeccion = () => {
                   <tr key={seccion.id}>
                     <td>{index + 1}</td>
                     <td>{seccion.nombre}</td>
+                    <td>{seccion.cupos}</td>
+                    <td>{seccion.carrera.nombre}</td>
                     <td>{seccion.ciclo.nombre}</td>
                     <td>{seccion.ciclo.semestre.nombre}</td>
                   </tr>

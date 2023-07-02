@@ -96,7 +96,7 @@ const CreateMatricula = () => {
         }
       );
       console.log(response.data);
-      navigate("/departamento");
+      navigate("/matricula");
     } catch (error) {
       console.error(error);
     }
@@ -118,6 +118,7 @@ const CreateMatricula = () => {
                   </label>
                   <select
                     id="estudiante"
+                    name="estudiante"
                     className="form-control"
                     required={true}
                     onChange={handleEstudianteChange}
@@ -136,6 +137,7 @@ const CreateMatricula = () => {
                   </label>
                   <select
                     id="carrera"
+                    name="carrera"
                     className="form-control"
                     required={true}
                     onChange={handleCarreraChange}
@@ -155,7 +157,7 @@ const CreateMatricula = () => {
                 {ciclosList.map((option, index) => (
                   <div className="form-check form-check-inline" key={index}>
                   <input className="form-check-input" type="radio" name="ciclo" id={option.nombre} value={option.id} required={true} onChange={handleCicloChange}/>
-                  <label className="form-check-label" htmlFor={option.nombre}>{option.nombre} ciclo</label>
+                  <label className="form-check-label" htmlFor={option.nombre}>{option.nombre} ciclo {option.semestre.nombre}</label>
                 </div>
                     ))}
                 </div>

@@ -9,7 +9,7 @@ class EstudianteSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name="matriculaApp:estudiante-detail")
     class Meta:
         model = Estudiante
-        fields = ['id','url','nombre','apellido','fecha_nacimiento','direccion','dni','telefono','certificado']
+        fields = ['id','url','nombre','apellido','fecha_nacimiento','direccion','dni','telefono']
 
 class SemestreSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name="matriculaApp:semestre-detail")
