@@ -2,6 +2,11 @@ from django.urls import path, include
 from . import views
 from rest_framework import routers
 
+from matriculaApp.views import MatriculadosPorCarreraView
+from matriculaApp.views import MatriculadosPorCicloView
+from matriculaApp.views import MatriculadosPorDepartamentoView
+
+
 app_name = "matriculaApp"
 
 router =routers.DefaultRouter()
@@ -20,5 +25,11 @@ urlpatterns = [
     path('logout/', views.LogoutView.as_view(), name ='logout'),
     path('register/', views.RegisterView.as_view(), name ='register'),
     path('matricular/',views.MatricularView.as_view(), name='matricular'),
-    path('cicloActual/',views.CicloActualView.as_view(), name='cicloActual')
+    path('cicloActual/',views.CicloActualView.as_view(), name='cicloActual'),
+
+    path('matriculados-por-carrera/', MatriculadosPorCarreraView.as_view(), name='matriculados-por-carrera'),
+    path('matriculados-por-ciclo/', MatriculadosPorCicloView.as_view(), name='matriculados-por-ciclo'),
+    path('matriculados-por-departamento/', MatriculadosPorDepartamentoView.as_view(), name='matriculados-por-departamento'),
+
+
 ]

@@ -83,6 +83,26 @@ class MatricularView(APIView):
             return Response(status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+        
+#CONSULTAS MATRÍCULA        
+class MatriculadosPorCicloView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request):
+        ciclos = Ciclo.objects.annotate(matriculados=Count('seccion__matricula')).values('nombre','semestre__nombre', 'matriculados')
+        return Response(ciclos)
+class MatriculadosPorCarreraView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request):
+        carreras = Carrera.objects.annotate(matriculados=Count('seccion__matricula')).values('nombre', 'matriculados')
+        return Response(carreras)
+class MatriculadosPorDepartamentoView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request):
+        departamentos = Departamento.objects.annotate(matriculados=Count('carrera__seccion__matricula')).values('nombre', 'matriculados')
+        return Response(departamentos)
 
 #APLICACION MATRICULAAPP
 class EstudianteViewSet(viewsets.ModelViewSet):

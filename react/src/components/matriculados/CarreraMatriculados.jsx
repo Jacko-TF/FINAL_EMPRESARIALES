@@ -39,7 +39,6 @@ const MatriculadosPorCarrera = () => {
             <table className="table table-bordered">
               <thead>
                 <tr>
-                  <th>Carrera</th>
                   <th>Cantidad de Matriculados</th>
                 </tr>
               </thead>

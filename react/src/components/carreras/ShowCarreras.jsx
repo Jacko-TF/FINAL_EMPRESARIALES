@@ -30,10 +30,10 @@ function CursosList() {
 
   return (
     <div className="container-fluid">
-      <h1>Lista de Cursos</h1>
       <div className="row mt-3">
         <div className="col-12 col-lg-8 offset-0 offset-lg-2">
           <div className="table-responsive">
+          <h2>Lista de Carreras</h2>
             <table className="table table-bordered">
               <thead>
                 <tr>

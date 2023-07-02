@@ -64,7 +64,7 @@ const ShowEstudiante = () => {
       </div>
       <div className="row mt-3">
           <div className="table-responsive">
-            <h1>Estudiantes</h1>
+            <h2>Lista de Estudiantes</h2>
             <table className="table table-bordered">
               <thead>
                 <tr>
