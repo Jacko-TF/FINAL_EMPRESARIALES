@@ -1,10 +1,10 @@
 import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import {Login} from "./components/login";
+import {Login} from "./components/Login";
 import {Register} from "./components/register";
 import {Home} from "./components/Home";
 import { Navigation } from './components/Navigation';
-import {Logout} from './components/logout';
+import {Logout} from './components/Logout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ShowDepartamento from './components/departamento/ShowDepartamento';
@@ -20,6 +20,11 @@ import ShowCiclo from './components/ciclo/ShowCiclo';
 import ShowEstudiante from './components/estudiante/ShowEstudiante';
 import CreateEstudiante from './components/estudiante/createEstudiante';
 import EditEstudiante from './components/estudiante/EditEstudiante';
+import CarreraMatriculados from './components/matriculados/CarreraMatriculados';
+import CicloMatriculados from './components/matriculados/CicloMatriculados';
+import DepartamentoMatriculados from './components/matriculados/DepartamentoMatriculados';
+
+DepartamentoMatriculados
 
 function App() {
     return <BrowserRouter>
@@ -43,6 +48,10 @@ function App() {
             <Route path='/estudiante' element={<ShowEstudiante/>}></Route>
             <Route path='/estudiante/create' element={<CreateEstudiante/>}></Route>
             <Route path='/estudiante/edit/:id' element={<EditEstudiante/>}></Route>
+
+            <Route path='/carreraMatriculados' element={<CarreraMatriculados/>}></Route>
+            <Route path='/cicloMatriculados' element={<CicloMatriculados/>}></Route>
+            <Route path='/departamentoMatriculados' element={<DepartamentoMatriculados/>}></Route>
             
         </Routes>
     </BrowserRouter>;

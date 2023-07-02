@@ -30,6 +30,11 @@ export function Navigation() {
               <NavDropdown.Item href="/ciclo">Ciclo</NavDropdown.Item>
               <NavDropdown.Item href="/seccion">Seccion</NavDropdown.Item>
             </NavDropdown>
+            <NavDropdown title="Consultas" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/carreraMatriculados">CarreraMatriculados</NavDropdown.Item>
+              <NavDropdown.Item href="/cicloMatriculados">CicloMatriculados</NavDropdown.Item>
+              <NavDropdown.Item href="/departamentoMatriculados">DepartamentoMatriculados</NavDropdown.Item>
+            </NavDropdown>
           </>
         )}
       </Nav>

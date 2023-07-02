@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const baseUrl = "http://127.0.0.1:8000/carreras/"; 
-
-const ShowCarreras = () => {
-  const [carreras, setCarreras] = useState([]);
+function CursosList() {
+  const [cursos, setCursos] = useState([]);
 
   useEffect(() => {
-    getCarreras();
+    getCursos();
   }, []);
 
-  const getCarreras = async () => {
+  const getCursos = async () => {
     try {
       const accessToken = localStorage.getItem("access_token");
       if (!accessToken) {
@@ -19,14 +16,13 @@ const ShowCarreras = () => {
         return;
       }
 
-      const response = await axios.get(baseUrl, {
+      const response = await axios.get('http://127.0.0.1:8000/cursos/', {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
       });
-
-      setCarreras(response.data);
+      setCursos(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -34,29 +30,34 @@ const ShowCarreras = () => {
 
   return (
     <div className="container-fluid">
-      <div className="row mt-3">
-        <div className="col-md-4 offset-md-4">
-          <div className="d-grid mx-auto">
-          </div>
-        </div>
-      </div>
+      <h1>Lista de Cursos</h1>
       <div className="row mt-3">
         <div className="col-12 col-lg-8 offset-0 offset-lg-2">
           <div className="table-responsive">
             <table className="table table-bordered">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Carrera</th>
-                  <th>Departamento</th>
+                  <th>Nombre</th>
+                  <th>ID</th>
+                  <th>Descripción</th>
+                  <th>Créditos</th>
+                  <th>Cupos</th>
+                  <th>Horas</th>
+                  <th>Sección</th>
+                  <th>Ciclo</th>
                 </tr>
               </thead>
-              <tbody className="table-group-divider">
-                {carreras.map((carrera, index) => (
-                  <tr key={carrera.id}>
-                    <td>{index + 1}</td>
-                    <td>{carrera.nombre}</td>
-                    <td>{carrera.departamento.nombre}</td>
+              <tbody>
+                {cursos.map((curso) => (
+                  <tr key={curso.id}>
+                    <td>{curso.nombre}</td>
+                    <td>{curso.id}</td>
+                    <td>{curso.descripcion}</td>
+                    <td>{curso.credito}</td>
+                    <td>{curso.seccion.cupos}</td>
+                    <td>{curso.horas}</td>
+                    <td>{curso.seccion.nombre}</td>
+                    <td>{curso.seccion.ciclo.nombre}</td>
                   </tr>
                 ))}
               </tbody>
@@ -66,6 +67,6 @@ const ShowCarreras = () => {
       </div>
     </div>
   );
-};
+}
 
-export default ShowCarreras;
+export default CursosList;
