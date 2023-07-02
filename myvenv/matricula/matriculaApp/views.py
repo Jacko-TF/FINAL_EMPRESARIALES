@@ -54,6 +54,23 @@ class CicloActualView(APIView):
         serializer = CicloSerializer(ciclos, many=True, context={'request': request})
         return Response(serializer.data)
 
+class CicloDisponibleView(APIView):
+    permission_classes = (AllowAny,)
+    def get(self,request):
+        carreraId = request.query_params['carrera']
+        carrera = Carrera.objects.get(id=carreraId)
+        ciclos = Ciclo.objects.filter(semestre__fecha_inicio__gt=date.today())
+        cupos = []
+        for c in ciclos:
+            ciclo = Ciclo.objects.get(id=c.id)
+            secciones = Seccion.objects.filter(carrera=carrera,ciclo=ciclo)
+            total = 0
+            for seccion in secciones:
+                total += seccion.cupos
+            cupos.append(total)
+        data = cupos
+        return Response(data)
+
 class MatricularView(APIView):
     permission_classes = (IsAuthenticated,)
     def post(self, request):

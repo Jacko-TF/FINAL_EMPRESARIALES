@@ -20,5 +20,6 @@ urlpatterns = [
     path('logout/', views.LogoutView.as_view(), name ='logout'),
     path('register/', views.RegisterView.as_view(), name ='register'),
     path('matricular/',views.MatricularView.as_view(), name='matricular'),
-    path('cicloActual/',views.CicloActualView.as_view(), name='cicloActual')
+    path('cicloActual/',views.CicloActualView.as_view(), name='cicloActual'),
+    path('cicloDisponible/',views.CicloDisponibleView.as_view(),name='cicloDisponible')
 ]
