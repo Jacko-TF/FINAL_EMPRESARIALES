@@ -15,6 +15,11 @@ import EditMatricula from './components/matriculas/EditMatricula';
 import CreateMatricula from './components/matriculas/CreateMatricula';
 import CursosList from './components/curso/CursosList';
 import PagosList from './components/pago/PagosList';
+import ShowSeccion from './components/seccion/ShowSeccion';
+import ShowCiclo from './components/ciclo/ShowCiclo';
+import ShowEstudiante from './components/estudiante/ShowEstudiante';
+import CreateEstudiante from './components/estudiante/createEstudiante';
+import EditEstudiante from './components/estudiante/EditEstudiante';
 
 function App() {
     return <BrowserRouter>
@@ -33,6 +38,11 @@ function App() {
             <Route path="/pago" element={<PagosList/>} />
             <Route path="/matricula/create" element={<CreateMatricula/>} />
             <Route path="/matricula/edit/:id" element={<EditMatricula/>} />
+            <Route path='/ciclo' element={<ShowCiclo/>}></Route>
+            <Route path='/seccion' element={<ShowSeccion/>}></Route>
+            <Route path='/estudiante' element={<ShowEstudiante/>}></Route>
+            <Route path='/estudiante/create' element={<CreateEstudiante/>}></Route>
+            <Route path='/estudiante/edit/:id' element={<EditEstudiante/>}></Route>
             
         </Routes>
     </BrowserRouter>;

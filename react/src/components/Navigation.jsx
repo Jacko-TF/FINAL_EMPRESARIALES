@@ -27,6 +27,8 @@ export function Navigation() {
               <NavDropdown.Item href="/carrera">Carrera</NavDropdown.Item>
               <NavDropdown.Item href="/pago">Pago</NavDropdown.Item>
               <NavDropdown.Item href="/curso">Curso</NavDropdown.Item>
+              <NavDropdown.Item href="/ciclo">Ciclo</NavDropdown.Item>
+              <NavDropdown.Item href="/seccion">Seccion</NavDropdown.Item>
             </NavDropdown>
           </>
         )}
