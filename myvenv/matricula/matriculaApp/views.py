@@ -10,6 +10,9 @@ from .models import Estudiante, Semestre, Seccion, Ciclo, Departamento, Carrera,
 from .serializers import EstudianteSerializer, SemestreSerializer, SeccionSerializer, CarreraSerializer, CicloSerializer, DepartamentoSerializer, CursoSerializer, MatriculaSerializer, PagoSerializer
 from django.contrib.auth.models import User
 from datetime import datetime,date
+import random
+from django.db.models import Count
+
 
 class HomeView(APIView):
    permission_classes = (IsAuthenticated, )
@@ -52,19 +55,32 @@ class CicloActualView(APIView):
         return Response(serializer.data)
 
 class MatricularView(APIView):
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
     def post(self, request):
         try:
-            estudiante_id = request.data['estudiante']
-            ciclo_id = request.data['ciclo']
-            carrera_id = request.data['carrera']
+            estudianteId = request.data['estudiante']
+            cicloId = request.data['ciclo']
+            carreraId = request.data['carrera']
             fecha = datetime.now().date()
-            if(Ciclo.objects.filter(id=ciclo_id).exists()):
-                seccion = Seccion.objects.get(carrera=carrera_id,ciclo=ciclo_id)
-                seccion_id = seccion.id
-                matricula = Matricula.objects.create(fecha,estudiante_id,seccion_id)
-                matricula.save()
-                return Response(status=status.HTTP_201_CREATED)
+            ciclo = Ciclo.objects.get(id=cicloId)
+            carrera = Carrera.objects.get(id=carreraId)
+
+            if(Seccion.objects.filter(ciclo=ciclo,carrera=carrera).exists()):
+                seccion = Seccion.objects.filter(ciclo=ciclo,carrera=carrera)
+                if(Estudiante.objects.filter(id=estudianteId).exists()):
+                    estudiante=Estudiante.objects.get(id=estudianteId)
+                    secciones = []
+                    for e in seccion :
+                        secciones.append(e.id)
+                    print(secciones)
+                    seccion_aleatoria = random.choice(secciones)
+                    matricula = Matricula.objects.create(fecha=fecha,estudiante=estudiante,seccion=Seccion.objects.get(id=seccion_aleatoria))
+                    matricula.save()
+                else:
+                    return Response(status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -83,7 +99,7 @@ class SemestreViewSet(viewsets.ModelViewSet):
 class CicloViewSet(viewsets.ModelViewSet):
     queryset = Ciclo.objects.all().order_by('id')
     serializer_class = CicloSerializer
-    permission_classes = [AllowAny,]
+    permission_classes = [IsAuthenticated,]
 
 class DepartamentoViewSet(viewsets.ModelViewSet):
     queryset = Departamento.objects.all().order_by('id')
@@ -98,17 +114,17 @@ class CarreraViewSet(viewsets.ModelViewSet):
 class SeccionViewSet(viewsets.ModelViewSet):
     queryset = Seccion.objects.all().order_by('id')
     serializer_class = SeccionSerializer
-    permission_classes = [AllowAny,]
+    permission_classes = [IsAuthenticated,]
 
 class CursoViewSet(viewsets.ModelViewSet):
     queryset = Curso.objects.all().order_by('id')
     serializer_class = CursoSerializer
-    permission_classes = [AllowAny,]
+    permission_classes = [IsAuthenticated,]
 
 class MatriculaViewSet(viewsets.ModelViewSet):
     queryset = Matricula.objects.all().order_by('id')
     serializer_class = MatriculaSerializer
-    permission_classes = [AllowAny,]
+    permission_classes = [IsAuthenticated,]
 
 class PagoViewSet(viewsets.ModelViewSet):
     queryset = Pago.objects.all().order_by('id')

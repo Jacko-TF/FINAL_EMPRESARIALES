@@ -9,7 +9,6 @@ class Estudiante(models.Model):
     direccion = models.CharField(max_length=200)
     dni = models.CharField(max_length=8)
     telefono = models.CharField(max_length=9)
-    certificado = models.FileField(upload_to='pdfs/')
 
     def __str__(self):
         return self.nombre + '-' + self.apellido

@@ -3,7 +3,7 @@ from django.contrib import admin
 from .models import Estudiante, Semestre, Seccion, Ciclo, Departamento, Carrera, Curso, Matricula, Pago
 
 class EstudianteAdmin(admin.ModelAdmin):
-    list_display = ['nombre','apellido','fecha_nacimiento','direccion','dni','telefono','certificado']
+    list_display = ['nombre','apellido','fecha_nacimiento','direccion','dni','telefono']
 
 class SemestreAdmin(admin.ModelAdmin):
     list_display = ['nombre','fecha_inicio','fecha_final']

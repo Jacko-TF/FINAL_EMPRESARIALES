@@ -10,7 +10,12 @@ function CursosList() {
 
   const getCursos = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/cursos/');
+      const response = await axios.get('http://127.0.0.1:8000/cursos/', {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       setCursos(response.data);
     } catch (error) {
       console.error(error);

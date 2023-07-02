@@ -69,8 +69,12 @@ const ShowMatriculas = () => {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Fecha</th>
-                  <th>Estudiante</th>
+                  <th>Fecha Matricula</th>
+                  <th>Apellido</th>
+                  <th>Nombre</th>
+                  <th>Carrera</th>
+                  <th>Semestre</th>
+                  <th>Ciclo</th>
                   <th>Sección</th>
                   <th></th>
                 </tr>
@@ -80,10 +84,14 @@ const ShowMatriculas = () => {
                   <tr key={matricula.id}>
                     <td>{index + 1}</td>
                     <td>{matricula.fecha}</td>
+                    <td>{matricula.estudiante.apellido}</td>
                     <td>{matricula.estudiante.nombre}</td>
+                    <td>{matricula.seccion.carrera.nombre}</td>
+                    <td>{matricula.seccion.ciclo.semestre.nombre}</td>
+                    <td>{matricula.seccion.ciclo.nombre}</td>
                     <td>{matricula.seccion.nombre}</td>
                     <td>
-                      <Link to={`/matricula/edit/${matricula.id}`} className="btn btn-warning">Editar</Link>
+                      {/* <Link to={`/matricula/edit/${matricula.id}`} className="btn btn-warning">Editar</Link> */}
                       &nbsp;
                       <button className="btn btn-danger" onClick={() => deleteMatricula(matricula.id)}>Eliminar</button>
                     </td>

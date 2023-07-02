@@ -32,7 +32,7 @@ const CreateEstudiante = () => {
         },
       });
 
-      navigate("/estudiantes/create");
+      navigate("/estudiante");
     } catch (error) {
       console.error(error);
     }
