@@ -25,6 +25,8 @@ export function Navigation() {
               <NavDropdown.Item href="/departamento">Departamento</NavDropdown.Item>
               <NavDropdown.Item href="/semestre">Semestre</NavDropdown.Item>
               <NavDropdown.Item href="/carrera">Carrera</NavDropdown.Item>
+              <NavDropdown.Item href="/pago">Pago</NavDropdown.Item>
+              <NavDropdown.Item href="/curso">Curso</NavDropdown.Item>
             </NavDropdown>
           </>
         )}

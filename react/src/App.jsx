@@ -13,6 +13,8 @@ import ShowCarreras from './components/carreras/ShowCarreras';
 import ShowMatriculas from './components/matriculas/ShowMatriculas';
 import EditMatricula from './components/matriculas/EditMatricula';
 import CreateMatricula from './components/matriculas/CreateMatricula';
+import CursosList from './components/curso/CursosList';
+import PagosList from './components/pago/PagosList';
 
 function App() {
     return <BrowserRouter>
@@ -27,6 +29,8 @@ function App() {
             <Route path="/semestre" element={<ShowSemestre/>} />
             <Route path="/carrera" element={<ShowCarreras/>} />
             <Route path="/matricula" element={<ShowMatriculas/>} />
+            <Route path="/curso" element={<CursosList/>} />
+            <Route path="/pago" element={<PagosList/>} />
             <Route path="/matricula/create" element={<CreateMatricula/>} />
             <Route path="/matricula/edit/:id" element={<EditMatricula/>} />
             
