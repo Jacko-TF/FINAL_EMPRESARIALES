@@ -20,7 +20,6 @@ import ShowCiclo from './components/ciclo/ShowCiclo';
 import ShowEstudiante from './components/estudiante/ShowEstudiante';
 import CreateEstudiante from './components/estudiante/createEstudiante';
 import EditEstudiante from './components/estudiante/EditEstudiante';
-
 function App() {
     return <BrowserRouter>
     <Navigation></Navigation>
