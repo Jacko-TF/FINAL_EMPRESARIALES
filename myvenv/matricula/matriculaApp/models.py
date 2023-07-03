@@ -74,7 +74,7 @@ class Pago(models.Model):
     estado = models.BooleanField(default=False)
     fecha_creacion = models.DateField(default=date.today)
     fecha_vencimiento = models.DateField()
-    fecha_pago = models.DateField()
+    fecha_pago = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return str(self.monto)+'-'+str(self.estado)+'-'+self.matricula.estudiante.apellido

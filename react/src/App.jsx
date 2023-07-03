@@ -20,6 +20,13 @@ import ShowCiclo from './components/ciclo/ShowCiclo';
 import ShowEstudiante from './components/estudiante/ShowEstudiante';
 import CreateEstudiante from './components/estudiante/createEstudiante';
 import EditEstudiante from './components/estudiante/EditEstudiante';
+import CuposCarreraList from './components/consultas/CuposCarreras';
+import CuposCicloList from './components/consultas/CuposCiclo';
+import MatriculadosPorCarrera from './components/consultas/CarreraMatriculados';
+import MatriculadosPorCiclo from './components/consultas/CicloMatriculados';
+import MatriculadosPorDepartamento from './components/consultas/DepartamentoMatriculados';
+import MatriculadosPorSemestre from './components/consultas/SemestreMatriculados';
+
 function App() {
     return <BrowserRouter>
     <Navigation></Navigation>
@@ -42,7 +49,12 @@ function App() {
             <Route path='/estudiante' element={<ShowEstudiante/>}></Route>
             <Route path='/estudiante/create' element={<CreateEstudiante/>}></Route>
             <Route path='/estudiante/edit/:id' element={<EditEstudiante/>}></Route>
-            
+            <Route path="/cupos-carrera" element={<CuposCarreraList/>}/>
+            <Route path="/cupos-ciclo" element={<CuposCicloList/>}/>
+            <Route path='/carreraMatriculados' element={<MatriculadosPorCarrera/>}/>
+            <Route path='/cicloMatriculados' element={<MatriculadosPorCiclo/>}/>
+            <Route path='/departamentoMatriculados' element={<MatriculadosPorDepartamento/>}/>
+            <Route path='/semestreMatriculados' element={<MatriculadosPorSemestre/>}/>
         </Routes>
     </BrowserRouter>;
 }

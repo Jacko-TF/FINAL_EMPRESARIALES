@@ -30,6 +30,14 @@ export function Navigation() {
               <NavDropdown.Item href="/ciclo">Ciclo</NavDropdown.Item>
               <NavDropdown.Item href="/seccion">Seccion</NavDropdown.Item>
             </NavDropdown>
+            <NavDropdown title="Consultas" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/cupos-carrera">Cupos por Carrera</NavDropdown.Item>
+              <NavDropdown.Item href="/cupos-ciclo">Cupos por Ciclo</NavDropdown.Item>
+              <NavDropdown.Item href="/carreraMatriculados">Carrera Matriculados</NavDropdown.Item>
+              <NavDropdown.Item href="/cicloMatriculados">Ciclo Matriculados</NavDropdown.Item>
+              <NavDropdown.Item href="/departamentoMatriculados">Departamento Matriculados</NavDropdown.Item>
+              <NavDropdown.Item href="/semestreMatriculados">Semestre Matriculados</NavDropdown.Item>
+            </NavDropdown>
           </>
         )}
       </Nav>

@@ -10,6 +10,12 @@ function CursosList() {
 
   const getCursos = async () => {
     try {
+      const accessToken = localStorage.getItem("access_token");
+      if (!accessToken) {
+        // Handle unauthorized access
+        console.log("Unauthorized access");
+        return;
+      }
       const response = await axios.get('http://127.0.0.1:8000/cursos/', {
         headers: {
           "Content-Type": "application/json",
@@ -24,7 +30,6 @@ function CursosList() {
 
   return (
     <div className="container-fluid">
-      <h1>Lista de Cursos</h1>
       <div className="row mt-3">
         <div className="col-12 col-lg-8 offset-0 offset-lg-2">
           <div className="table-responsive">

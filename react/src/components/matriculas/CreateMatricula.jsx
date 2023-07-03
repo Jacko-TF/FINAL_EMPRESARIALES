@@ -6,6 +6,7 @@ const baseUrl = "http://127.0.0.1:8000/matricular/";
 const cicloApiUrl = "http://127.0.0.1:8000/cicloActual/";
 const carreraApiUrl = "http://127.0.0.1:8000/carreras/";
 const estudianteApiUrl = "http://127.0.0.1:8000/estudiantes/";
+const cicloDisponibleUrl = "http://127.0.0.1:8000/cicloDisponible/"
 
 const CreateMatricula = () => {
   //Obtener datos de la API
@@ -57,13 +58,33 @@ const CreateMatricula = () => {
   //capturar datos de formulario
   const [estudiante, setEstudiante] = useState('');
   const [carrera, setCarrera] = useState('');
+  const [selectedCarrera, setselectedCarrera] = useState('');
   const [ciclo, setCiclo] = useState('');
+  const [cuposList, setCuposList] = useState([]);
+
+  useEffect(() => {
+    const fetchCupos = async () => {
+      try {
+        const response = await axios.get(cicloDisponibleUrl+`?carrera=${selectedCarrera}`);
+        setCuposList(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (selectedCarrera) {
+      fetchCupos();
+    } else {
+      setCuposList([]);
+    }
+  }, [selectedCarrera]);
 
   const handleEstudianteChange = (event) => {
     setEstudiante(event.target.value);
   };
   const handleCarreraChange = (event) => {
     setCarrera(event.target.value);
+    setselectedCarrera(event.target.value);
   };
   const handleCicloChange = (event) => {
     setCiclo(event.target.value);
@@ -102,6 +123,9 @@ const CreateMatricula = () => {
     }
   };
   console.log(ciclosList)
+  console.log(cuposList)
+  console.log(carrerasList)
+  console.log(selectedCarrera)
   return (
     <div className="container-fluid">
       <div className="row mt-3">
@@ -156,9 +180,20 @@ const CreateMatricula = () => {
                   </label>
                 {ciclosList.map((option, index) => (
                   <div className="form-check form-check-inline" key={index}>
-                  <input className="form-check-input" type="radio" name="ciclo" id={option.nombre} value={option.id} required={true} onChange={handleCicloChange}/>
-                  <label className="form-check-label" htmlFor={option.nombre}>{option.nombre} ciclo {option.semestre.nombre}</label>
-                </div>
+                  {
+                      cuposList[index] > 0 ?
+                      <>
+                        <input className="form-check-input" type="radio" name="ciclo" id={index} value={option.id} required={true} onChange={handleCicloChange}/>
+                        <label className="form-check-label" htmlFor={index}>{option.nombre} ciclo {option.semestre.nombre}</label>
+                      </>
+                      :
+                      <>
+                        <input className="form-check-input" type="radio" name="ciclo" id={index} value={option.id} required={true} onChange={handleCicloChange} disabled={true}/>
+                        <label className="form-check-label" htmlFor={index}>{option.nombre} ciclo {option.semestre.nombre}</label>
+                      </>
+                  }
+                  {console.log(index)}
+                  </div>
                     ))}
                 </div>
                 <button className="btn btn-success mt-3">Guardar</button>

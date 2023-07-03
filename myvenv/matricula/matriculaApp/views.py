@@ -7,7 +7,7 @@ from rest_framework import  viewsets
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import status
 from .models import Estudiante, Semestre, Seccion, Ciclo, Departamento, Carrera, Curso, Matricula, Pago
-from .serializers import EstudianteSerializer, SemestreSerializer, SeccionSerializer, CarreraSerializer, CicloSerializer, DepartamentoSerializer, CursoSerializer, MatriculaSerializer, PagoSerializer
+from .serializers import EstudianteSerializer, SemestreSerializer, SeccionSerializer, CarreraSerializer, CicloSerializer, DepartamentoSerializer, CursoSerializer, MatriculaSerializer, PagoSerializer,CarreraCuposSerializer, CicloCuposSerializer
 from django.contrib.auth.models import User
 from datetime import datetime,date
 import random
@@ -53,6 +53,23 @@ class CicloActualView(APIView):
         ciclos = Ciclo.objects.filter(semestre__fecha_inicio__gt=date.today())
         serializer = CicloSerializer(ciclos, many=True, context={'request': request})
         return Response(serializer.data)
+
+class CicloDisponibleView(APIView):
+    permission_classes = (AllowAny,)
+    def get(self,request):
+        carreraId = request.query_params['carrera']
+        carrera = Carrera.objects.get(id=carreraId)
+        ciclos = Ciclo.objects.filter(semestre__fecha_inicio__gt=date.today())
+        cupos = []
+        for c in ciclos:
+            ciclo = Ciclo.objects.get(id=c.id)
+            secciones = Seccion.objects.filter(carrera=carrera,ciclo=ciclo)
+            total = 0
+            for seccion in secciones:
+                total += seccion.cupos
+            cupos.append(total)
+        data = cupos
+        return Response(data)
 
 class MatricularView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -130,3 +147,44 @@ class PagoViewSet(viewsets.ModelViewSet):
     queryset = Pago.objects.all().order_by('id')
     serializer_class = PagoSerializer
     permission_classes = [AllowAny,]
+    
+class CuposCarreraViewSet(viewsets.ViewSet):
+    permission_classes = [AllowAny,]
+
+    def list(self, request):
+        carreras = Carrera.objects.all()
+        serializer = CarreraCuposSerializer(carreras, many=True)
+        return Response(serializer.data)
+
+class CuposCicloViewSet(viewsets.ViewSet):
+    permission_classes = [AllowAny,]
+
+    def list(self, request):
+        ciclos = Ciclo.objects.all()
+        serializer = CicloCuposSerializer(ciclos, many=True)
+        return Response(serializer.data)
+
+class MatriculadosPorCicloView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request):
+        ciclos = Ciclo.objects.annotate(matriculados=Count('seccion')).values('nombre','semestre__nombre', 'matriculados')
+        return Response(ciclos)
+class MatriculadosPorCarreraView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request):
+        carreras = Carrera.objects.annotate(matriculados=Count('seccion__matricula')).values('nombre', 'matriculados')
+        return Response(carreras)
+class MatriculadosPorDepartamentoView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request):
+        departamentos = Departamento.objects.annotate(matriculados=Count('carrera__seccion__matricula')).values('nombre', 'matriculados')
+        return Response(departamentos)
+    
+class MatriculadosPorSemestreView(APIView):
+    permission_classes = (AllowAny,)
+    def get(self, request):
+        semestres = Semestre.objects.annotate(matriculados=Count('ciclo__seccion__matricula')).values('nombre','matriculados')
+        return Response(semestres)
