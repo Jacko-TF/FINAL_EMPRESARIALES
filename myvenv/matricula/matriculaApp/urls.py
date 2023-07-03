@@ -14,6 +14,8 @@ router.register(r'secciones', views.SeccionViewSet)
 router.register(r'cursos', views.CursoViewSet)
 router.register(r'matriculas', views.MatriculaViewSet)
 router.register(r'pagos', views.PagoViewSet)
+router.register(r'cupos-carrera', views.CuposCarreraViewSet, basename='cupos-carrera')
+router.register(r'cupos-ciclo', views.CuposCicloViewSet, basename='cupos-ciclo')
 urlpatterns = [
     path('', include(router.urls)),
     path('home/', views.HomeView.as_view(), name ='home'),
@@ -21,5 +23,10 @@ urlpatterns = [
     path('register/', views.RegisterView.as_view(), name ='register'),
     path('matricular/',views.MatricularView.as_view(), name='matricular'),
     path('cicloActual/',views.CicloActualView.as_view(), name='cicloActual'),
-    path('cicloDisponible/',views.CicloDisponibleView.as_view(),name='cicloDisponible')
+    path('cicloDisponible/',views.CicloDisponibleView.as_view(),name='cicloDisponible'),
+    path('matriculados-por-carrera/',views.MatriculadosPorCarreraView.as_view(), name='matriculados-por-carrera'),
+    path('matriculados-por-ciclo/', views.MatriculadosPorCicloView.as_view(), name='matriculados-por-ciclo'),
+    path('matriculados-por-departamento/', views.MatriculadosPorDepartamentoView.as_view(), name='matriculados-por-departamento'),
+    path('matriculados-por-semestre/', views.MatriculadosPorSemestreView.as_view(), name='matriculados-por-semestre'),
+
 ]
