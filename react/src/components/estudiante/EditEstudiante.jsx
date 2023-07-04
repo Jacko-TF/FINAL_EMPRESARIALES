@@ -7,6 +7,7 @@ const baseUrl = "http://127.0.0.1:8000/estudiantes/";
 const EditEstudiante = () => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
+  const [fecha_nacimiento, setFechaNacimiento] = useState("");
   const [direccion, setDireccion] = useState("");
   const [dni, setDni] = useState("");
   const [telefono, setTelefono] = useState("");
@@ -35,6 +36,7 @@ const EditEstudiante = () => {
       const estudiante = response.data;
       setNombre(estudiante.nombre);
       setApellido(estudiante.apellido);
+      setFechaNacimiento(estudiante.fecha_nacimiento);
       setDireccion(estudiante.direccion);
       setDni(estudiante.dni);
       setTelefono(estudiante.telefono);
@@ -55,7 +57,7 @@ const EditEstudiante = () => {
       
       await axios.put(
         `${baseUrl}${id}/`,
-        { nombre , apellido, direccion, dni, telefono },
+        { nombre , apellido, fecha_nacimiento , direccion, dni, telefono },
         {
             headers: {
               "Content-Type": "application/json",
@@ -80,19 +82,22 @@ const EditEstudiante = () => {
               <form onSubmit={updateEstudiante}>
                 
                 <label>Nombre: </label>
-                <input type="text" id="nombre" maxLength="200" className="form-control" required={true}value={nombre}onChange={(e) => setNombre(e.target.value)} />
+                <input type="text" id="nombre" name="nombre" maxLength="200" className="form-control" required={true}value={nombre}onChange={(e) => setNombre(e.target.value)} />
 
                 <label>Apellido: </label>
-                <input type="text" id="apellido" maxLength="200" className="form-control" required={true} value={apellido} onChange={(e) => setApellido(e.target.value)} />
+                <input type="text" id="apellido" name="apellido" maxLength="200" className="form-control" required={true} value={apellido} onChange={(e) => setApellido(e.target.value)} />
+
+                <label>Fecha de nacimiento: </label>
+                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" className="form-control" required={true} value={fecha_nacimiento} onChange={(e) => setFechaNacimiento(e.target.value)}/>
 
                 <label>Direcccion: </label>
-                <input type="text" id="direccion" maxLength="200" className="form-control" required={true} value={direccion} onChange={(e) => setDireccion(e.target.value)}/>
+                <input type="text" id="direccion" name="direccion" maxLength="200" className="form-control" required={true} value={direccion} onChange={(e) => setDireccion(e.target.value)}/>
                 
                 <label>Dni: </label>
-                <input type="text" id="dni" maxLength="8" className="form-control" required={true} value={dni} onChange={(e) => setDni(e.target.value)}/>
+                <input type="text" id="dni" name="dni" maxLength="8" className="form-control" required={true} value={dni} onChange={(e) => setDni(e.target.value)}/>
                 
                 <label>Telefono: </label>
-                <input type="text" id="telefono" maxLength="9" className="form-control" required={true} value={telefono} onChange={(e) => setTelefono(e.target.value)}/>
+                <input type="text" id="telefono" name="telefono" maxLength="9" className="form-control" required={true} value={telefono} onChange={(e) => setTelefono(e.target.value)}/>
                 
                 <button className="btn btn-success mt-3">Guardar</button>
               </form>
