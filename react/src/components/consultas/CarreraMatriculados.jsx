@@ -3,12 +3,14 @@ import axios from "axios";
 import { useReactToPrint } from "react-to-print";
 
 import {
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer,
 } from "recharts";
 
 const MatriculadosPorCarrera = () => {
@@ -85,24 +87,21 @@ const MatriculadosPorCarrera = () => {
         <div className="col-lg-6">
           <div style={{ width: '100%', height: 400 }} className="mx-auto mt-4">
             <ResponsiveContainer>
-              <PieChart>
-                <Pie
-                  data={matriculados}
-                  dataKey="matriculados"
-                  nameKey="nombre"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={150}
-                  fill="#8884d8"
-                  label
-                >
-                  {matriculados.map((entry, index) => (
-                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
+              <BarChart
+                data={matriculados}
+                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="nombre" />
+                <YAxis />
                 <Tooltip />
                 <Legend />
-              </PieChart>
+                <Bar
+                  dataKey="matriculados"
+                  fill="#8884d8"
+                  barSize={30}
+                />
+              </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
