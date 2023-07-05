@@ -37,6 +37,7 @@ const ShowSemestre = () => {
       <div className="row mt-3">
         <div className="col-12 col-lg-8 offset-0 offset-lg-2">
           <div className="table-responsive">
+          <h1>Lista de Semestres</h1>
             <table className="table table-bordered">
               <thead>
                 <tr>

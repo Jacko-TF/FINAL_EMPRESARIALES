@@ -33,10 +33,10 @@ export function Navigation() {
             <NavDropdown title="Consultas" id="basic-nav-dropdown">
               <NavDropdown.Item href="/cupos-carrera">Cupos por Carrera</NavDropdown.Item>
               <NavDropdown.Item href="/cupos-ciclo">Cupos por Ciclo</NavDropdown.Item>
-              <NavDropdown.Item href="/carreraMatriculados">Carrera Matriculados</NavDropdown.Item>
-              <NavDropdown.Item href="/cicloMatriculados">Ciclo Matriculados</NavDropdown.Item>
-              <NavDropdown.Item href="/departamentoMatriculados">Departamento Matriculados</NavDropdown.Item>
-              <NavDropdown.Item href="/semestreMatriculados">Semestre Matriculados</NavDropdown.Item>
+              <NavDropdown.Item href="/carreraMatriculados">Matriculados por Carrera</NavDropdown.Item>
+              <NavDropdown.Item href="/cicloMatriculados">Matriculados por Ciclo</NavDropdown.Item>
+              <NavDropdown.Item href="/departamentoMatriculados">Matriculados por Departamento</NavDropdown.Item>
+              <NavDropdown.Item href="/semestreMatriculados">Matriculados por Semestre</NavDropdown.Item>
             </NavDropdown>
           </>
         )}
