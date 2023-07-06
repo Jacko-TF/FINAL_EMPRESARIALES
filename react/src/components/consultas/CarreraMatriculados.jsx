@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { useReactToPrint } from "react-to-print";
 import {
   BarChart,
   Bar,
@@ -14,6 +15,7 @@ import {
 const MatriculadosPorCarrera = () => {
   const [matriculados, setMatriculados] = useState([]);
   const [error, setError] = useState("");
+  const componentPDF = useRef();
 
   useEffect(() => {
     obtenerMatriculadosPorCarrera();
@@ -37,6 +39,11 @@ const MatriculadosPorCarrera = () => {
       setError("Error al obtener los matriculados por carrera");
     }
   };
+
+  const generatePDF = useReactToPrint({
+    content: () => componentPDF.current,
+    documentTitle: "Matriculados_por_Carrera",
+  });
 
   const wrapTick = (text, width) => {
     const words = text.split(" ");
@@ -68,6 +75,7 @@ const MatriculadosPorCarrera = () => {
 
   return (
     <div className="container">
+      <div ref={componentPDF} style={{ width: "100%" }}>
       <div className="row mt-3">
         <div className="col-lg-12">
           <div className="table-responsive">
@@ -94,6 +102,9 @@ const MatriculadosPorCarrera = () => {
               <p>No hay matriculados por carrera disponibles.</p>
             )}
           </div>
+          <button className="btn btn-success" onClick={generatePDF}>
+                PDF
+            </button>
         </div>
       </div>
       <div className="row mt-3">
@@ -131,6 +142,7 @@ const MatriculadosPorCarrera = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

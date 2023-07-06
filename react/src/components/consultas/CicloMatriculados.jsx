@@ -46,7 +46,7 @@ const MatriculadosPorCiclo = () => {
 
   const generatePDF = useReactToPrint({
     content: () => componentPDF.current,
-    documentTitle: "Matriculador por Carrera",
+    documentTitle: "Matriculados_por_Ciclo",
   });
 
   function ordenarCiclo(a, b) {

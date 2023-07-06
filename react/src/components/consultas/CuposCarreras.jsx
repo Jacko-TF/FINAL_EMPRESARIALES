@@ -24,7 +24,7 @@ const CuposCarreraList = () => {
 
   const generatePDF = useReactToPrint({
     content: () => componentPDF.current,
-    documentTitle: "Matriculador por Carrera",
+    documentTitle: "Cupos_por_Carrera",
   });
 
   return (
@@ -64,7 +64,7 @@ const CuposCarreraList = () => {
           <div className="col-12 col-lg-8 offset-0 offset-lg-2">
             <ResponsiveContainer width="100%" height={600}>
               <PieChart>
-              <Tooltip formatter={(value, name, entry) => [value,`${entry.payload.carrera}`]} />
+              <Tooltip formatter={(value, name, entry) => [value,`${entry.payload.carrera+" - "+entry.payload.semestre}`]} />
 
                 <Pie
                   data={cupos}

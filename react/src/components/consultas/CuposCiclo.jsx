@@ -35,7 +35,7 @@ function CuposCicloList() {
 
   const generatePDF = useReactToPrint({
     content: () => componentPDF.current,
-    documentTitle: 'Cupos por Ciclo',
+    documentTitle: 'Cupos_por_Ciclo',
   });
 
   return (
@@ -102,7 +102,7 @@ function CuposCicloList() {
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="ciclo" />
+                <XAxis dataKey={"ciclo"} />
                 <YAxis />
                 <Tooltip />
                 <Legend />
