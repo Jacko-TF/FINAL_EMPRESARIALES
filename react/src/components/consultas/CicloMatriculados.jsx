@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useReactToPrint } from "react-to-print";
-import { BarChart, Bar, XAxis,YAxis, CartesianGrid, Tooltip,Legend,ResponsiveContainer} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 const MatriculadosPorCiclo = () => {
   const [matriculados, setMatriculados] = useState([]);
   const [error, setError] = useState("");
+  const [semestres, setSemestres] = useState([]);
+  const [semestreSeleccionado, setSemestreSeleccionado] = useState("");
   const componentPDF = useRef();
 
   useEffect(() => {
     obtenerMatriculadosCiclo();
-  }, []);
+  }, [semestreSeleccionado]);
 
   const obtenerMatriculadosCiclo = async () => {
     try {
@@ -24,6 +26,10 @@ const MatriculadosPorCiclo = () => {
       );
       if (response && response.status === 200) {
         setMatriculados(response.data);
+
+        // Obtener los semestres únicos
+        const semestresUnicos = [...new Set(response.data.map((ciclo) => ciclo.semestre__nombre))];
+        setSemestres(semestresUnicos);
       }
     } catch (error) {
       console.error(error);
@@ -48,6 +54,10 @@ const MatriculadosPorCiclo = () => {
   }
   const listaOrdenada = [...matriculados].sort(ordenarCiclo);
 
+  const handleSemestreChange = (event) => {
+    setSemestreSeleccionado(event.target.value);
+  };
+
   return (
     <div ref={componentPDF} style={{ width: "100%" }}>
       <div className="container" style={{ padding: "10px" }}>
@@ -55,6 +65,14 @@ const MatriculadosPorCiclo = () => {
           <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div className="table-responsive">
               <h2 className="mt-4 mb-3">Matriculados por Ciclo</h2>
+              <select value={semestreSeleccionado} onChange={handleSemestreChange}>
+                <option value="">Todos los semestres</option>
+                {semestres.map((semestre) => (
+                  <option key={semestre} value={semestre}>
+                    {semestre}
+                  </option>
+                ))}
+              </select>
               {error && <p className="text-danger">{error}</p>}
               {matriculados.length > 0 ? (
                 <table className="table table-bordered">
@@ -66,13 +84,17 @@ const MatriculadosPorCiclo = () => {
                     </tr>
                   </thead>
                   <tbody className="table-group-divider">
-                    {matriculados.map((ciclo) => (
-                      <tr key={ciclo.nombre}>
-                        <td>{ciclo.semestre__nombre}</td>
-                        <td>{ciclo.nombre}</td>
-                        <td>{ciclo.matriculados}</td>
-                      </tr>
-                    ))}
+                    {matriculados
+                      .filter((ciclo) =>
+                        semestreSeleccionado ? ciclo.semestre__nombre === semestreSeleccionado : true
+                      )
+                      .map((ciclo) => (
+                        <tr key={ciclo.nombre}>
+                          <td>{ciclo.semestre__nombre}</td>
+                          <td>{ciclo.nombre}</td>
+                          <td>{ciclo.matriculados}</td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               ) : (
