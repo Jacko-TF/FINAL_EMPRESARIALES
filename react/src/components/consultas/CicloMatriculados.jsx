@@ -8,6 +8,7 @@ const MatriculadosPorCiclo = () => {
   const [error, setError] = useState("");
   const [semestres, setSemestres] = useState([]);
   const [semestreSeleccionado, setSemestreSeleccionado] = useState("");
+  const [matriculadosFiltrados, setMatriculadosFiltrados] = useState([]);
   const componentPDF = useRef();
 
   useEffect(() => {
@@ -30,6 +31,12 @@ const MatriculadosPorCiclo = () => {
         // Obtener los semestres únicos
         const semestresUnicos = [...new Set(response.data.map((ciclo) => ciclo.semestre__nombre))];
         setSemestres(semestresUnicos);
+
+        // Filtrar los matriculados según el semestre seleccionado
+        const matriculadosFiltrados = semestreSeleccionado
+          ? response.data.filter((ciclo) => ciclo.semestre__nombre === semestreSeleccionado)
+          : response.data;
+        setMatriculadosFiltrados(matriculadosFiltrados);
       }
     } catch (error) {
       console.error(error);
@@ -52,17 +59,26 @@ const MatriculadosPorCiclo = () => {
     }
     return cicloA.localeCompare(cicloB);
   }
-  const listaOrdenada = [...matriculados].sort(ordenarCiclo);
+  const listaOrdenada = [...matriculadosFiltrados].sort(ordenarCiclo);
 
   const handleSemestreChange = (event) => {
     setSemestreSeleccionado(event.target.value);
   };
 
+  useEffect(() => {
+    // Filtrar los matriculados según el semestre seleccionado
+    const matriculadosFiltrados = semestreSeleccionado
+      ? matriculados.filter((ciclo) => ciclo.semestre__nombre === semestreSeleccionado)
+      : matriculados;
+
+    setMatriculadosFiltrados(matriculadosFiltrados);
+  }, [matriculados, semestreSeleccionado]);
+
   return (
     <div ref={componentPDF} style={{ width: "100%" }}>
       <div className="container" style={{ padding: "10px" }}>
         <div className="row mt-3">
-          <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div className="col-xl-12col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div className="table-responsive">
               <h2 className="mt-4 mb-3">Matriculados por Ciclo</h2>
               <select value={semestreSeleccionado} onChange={handleSemestreChange}>
@@ -74,7 +90,7 @@ const MatriculadosPorCiclo = () => {
                 ))}
               </select>
               {error && <p className="text-danger">{error}</p>}
-              {matriculados.length > 0 ? (
+              {matriculadosFiltrados.length > 0 ? (
                 <table className="table table-bordered">
                   <thead>
                     <tr>
@@ -84,17 +100,13 @@ const MatriculadosPorCiclo = () => {
                     </tr>
                   </thead>
                   <tbody className="table-group-divider">
-                    {matriculados
-                      .filter((ciclo) =>
-                        semestreSeleccionado ? ciclo.semestre__nombre === semestreSeleccionado : true
-                      )
-                      .map((ciclo) => (
-                        <tr key={ciclo.nombre}>
-                          <td>{ciclo.semestre__nombre}</td>
-                          <td>{ciclo.nombre}</td>
-                          <td>{ciclo.matriculados}</td>
-                        </tr>
-                      ))}
+                    {matriculadosFiltrados.map((ciclo) => (
+                      <tr key={ciclo.nombre}>
+                        <td>{ciclo.semestre__nombre}</td>
+                        <td>{ciclo.nombre}</td>
+                        <td>{ciclo.matriculados}</td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               ) : (
