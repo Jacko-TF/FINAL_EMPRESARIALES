@@ -45,7 +45,7 @@ const MatriculadosPorSemestre = () => {
 
   const generatePDF = useReactToPrint({
     content: () =>componentPDF.current,
-    documentTitle:"Matriculador por Carrera",
+    documentTitle:"Matriculador_por_Semestre",
     //onAfterPrint:()=>alert("Datos guardados en PDF")
   });
 

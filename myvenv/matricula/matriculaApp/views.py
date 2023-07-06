@@ -168,7 +168,7 @@ class MatriculadosPorCicloView(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request):
-        ciclos = Ciclo.objects.annotate(matriculados=Count('seccion')).values('nombre','semestre__nombre', 'matriculados')
+        ciclos = Ciclo.objects.annotate(matriculados=Count('seccion__matricula')).values('nombre','semestre__nombre', 'matriculados')
         return Response(ciclos)
 class MatriculadosPorCarreraView(APIView):
     permission_classes = (AllowAny,)

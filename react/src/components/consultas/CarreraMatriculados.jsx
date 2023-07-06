@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useReactToPrint } from "react-to-print";
-
 import {
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer,
 } from "recharts";
 
 const MatriculadosPorCarrera = () => {
@@ -40,18 +41,43 @@ const MatriculadosPorCarrera = () => {
   };
 
   const generatePDF = useReactToPrint({
-    content: () =>componentPDF.current,
-    documentTitle:"Matriculador por Carrera",
-    //onAfterPrint:()=>alert("Datos guardados en PDF")
+    content: () => componentPDF.current,
+    documentTitle: "Matriculados_por_Carrera",
   });
 
-  const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff6e63", "#a2a2a2"];
+  const wrapTick = (text, width) => {
+    const words = text.split(" ");
+    const lineHeight = 16;
+    const maxLines = Math.floor(width / lineHeight);
+    let wrappedText = "";
+
+    for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+      const nextText = `${wrappedText} ${word}`;
+      const nextWidth = measureTextWidth(nextText);
+
+      if (nextWidth > width && i > 0) {
+        wrappedText += `\n${word}`;
+      } else {
+        wrappedText += ` ${word}`;
+      }
+    }
+
+    return wrappedText.trim();
+  };
+
+  const measureTextWidth = (text) => {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    context.font = "12px sans-serif";
+    return context.measureText(text).width;
+  };
 
   return (
     <div className="container">
-      <div ref={ componentPDF } style={{width:'100%'}}>
+      <div ref={componentPDF} style={{ width: "100%" }}>
       <div className="row mt-3">
-        <div className="col-lg-6">
+        <div className="col-lg-12">
           <div className="table-responsive">
             <h2 className="mt-4 mb-3">Matriculados por Carrera</h2>
             {error && <p className="text-danger">{error}</p>}
@@ -76,38 +102,47 @@ const MatriculadosPorCarrera = () => {
               <p>No hay matriculados por carrera disponibles.</p>
             )}
           </div>
-          <div>
-            <button className='btn btn-success' onClick={ generatePDF }>PDF</button>
-          </div>
+          <button className="btn btn-success" onClick={generatePDF}>
+                PDF
+            </button>
         </div>
       </div>
       <div className="row mt-3">
-        <div className="col-lg-6">
-          <div style={{ width: '100%', height: 400 }} className="mx-auto mt-4">
+        <div className="col-lg-12">
+          <div style={{ width: "100%", height: 400 }} className="mx-auto mt-4">
             <ResponsiveContainer>
-              <PieChart>
-                <Pie
-                  data={matriculados}
-                  dataKey="matriculados"
-                  nameKey="nombre"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={150}
-                  fill="#8884d8"
-                  label
-                >
-                  {matriculados.map((entry, index) => (
-                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip />
+            <BarChart
+                data={matriculados}
+                margin={{ top: 20, right: 30, left: 10, bottom: 2 }}
+                fontSize={13}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="nombre"
+                  interval={0}
+                  angle={-45}
+                  tick={{
+                    width: 100,
+                    wrapStyle: {
+                    whiteSpace: "pre-wrap",
+                    },
+                  }}
+                />
+                <YAxis 
+                  label={{
+                    value: "Cantidad de Matriculados por carrera",
+                    angle: -90,
+                    position: "insideLeft",
+                    dy: 90, }}/>
+                <Tooltip formatter={(value) => [value, "Cantidad de Matriculados"]} />
                 <Legend />
-              </PieChart>
-            </ResponsiveContainer>
+                <Bar dataKey="matriculados" fill="#3b83bd" barSize={40} />
+              </BarChart>
+              </ResponsiveContainer>
           </div>
         </div>
       </div>
-      </div>
+    </div>
     </div>
   );
 };
